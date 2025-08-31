@@ -129,6 +129,7 @@ class CaptureAPI
             } else {
                 return array(
                     'success' => false,
+                    /* translators: %d is the HTTP response code from the API */
                     'message' => sprintf(__('API returned error code: %d', 'capture-page'), $response_code)
                 );
             }

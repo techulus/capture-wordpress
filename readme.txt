@@ -2,11 +2,11 @@
 Contributors: techulus
 Tags: screenshot, pdf, capture, webpage, shortcode
 Requires at least: 4.7
-Tested up to: 6.3
+Tested up to: 6.8
 Requires PHP: 7.4
 Stable tag: 1.0.0
-License: GNU General Public License v3.0
-License URI: https://github.com/techulus/capture-wordpress/blob/main/LICENSE
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Embed website screenshots and PDFs using Capture API with simple shortcodes.
 

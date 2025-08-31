@@ -6,7 +6,7 @@
  * Version: 1.0.0
  * Author: Arjun Komath
  * Author URI: https://capture.page
- * License: MIT
+ * License: GPLv3
  * Text Domain: capture-page
  * Domain Path: /languages
  */
@@ -38,7 +38,6 @@ class CapturePage
 
     private function init()
     {
-        add_action('init', array($this, 'load_textdomain'));
         add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
 
@@ -54,10 +53,6 @@ class CapturePage
         register_deactivation_hook(__FILE__, array($this, 'deactivate'));
     }
 
-    public function load_textdomain()
-    {
-        load_plugin_textdomain('capture-page', false, dirname(plugin_basename(__FILE__)) . '/languages/');
-    }
 
     public function enqueue_scripts()
     {

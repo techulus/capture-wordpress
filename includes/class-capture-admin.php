@@ -192,7 +192,7 @@ class CaptureAdmin
     public function test_connection_ajax()
     {
         if (!current_user_can('manage_options')) {
-            wp_die(__('Insufficient permissions', 'capture-page'));
+            wp_die(esc_html__('Insufficient permissions', 'capture-page'));
         }
 
         check_ajax_referer('capture_admin_nonce', 'nonce');
@@ -205,11 +205,12 @@ class CaptureAdmin
 
     public function options_page()
     {
-        if (isset($_GET['settings-updated']) && $_GET['settings-updated']) {
+        $settings_updated = filter_input(INPUT_GET, 'settings-updated', FILTER_SANITIZE_SPECIAL_CHARS);
+        if ($settings_updated) {
             add_settings_error(
                 'capture_page_messages',
                 'capture_page_message',
-                __('Settings saved successfully!', 'capture-page'),
+                esc_html__('Settings saved successfully!', 'capture-page'),
                 'updated'
             );
         }
