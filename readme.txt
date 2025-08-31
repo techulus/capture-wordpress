@@ -1,4 +1,4 @@
-=== Capture ===
+=== Capture - Screenshots & PDF ===
 Contributors: techulus
 Tags: screenshot, pdf, capture, webpage, shortcode
 Requires at least: 4.7

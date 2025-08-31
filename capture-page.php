@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: Capture
+ * Plugin Name: Capture - Screenshots & PDF
  * Plugin URI: https://capture.page
  * Description: Embed website screenshots and PDFs using Capture API with simple shortcodes.
  * Version: 1.0.0
  * Author: Arjun Komath
- * Author URI: https://capture.page
+ * Author URI: https://techulus.com
  * License: GPLv3
  * Text Domain: capture-page
  * Domain Path: /languages
