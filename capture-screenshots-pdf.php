@@ -74,17 +74,53 @@ class CapturePage
     public function screenshot_shortcode($atts)
     {
         $atts = shortcode_atts(array(
+            // Required
             'url' => '',
-            'vw' => 1200,
-            'vh' => 800,
-            'full' => false,
+            
+            // Viewport & Capture Area
+            'vw' => 1440,
+            'vh' => 900,
+            'scalefactor' => 1,
+            'top' => 0,
+            'left' => 0,
+            'width' => null,
+            'height' => null,
+            
+            // Timing & Waiting
+            'waitfor' => '',
+            'waitforid' => '',
             'delay' => 0,
-            'format' => 'png',
-            'quality' => 90,
+            
+            // Screenshot Options
+            'full' => false,
+            'darkmode' => false,
+            'blockcookiebanners' => false,
+            'blockads' => false,
+            'bypassbotdetection' => false,
+            
+            // Selectors
+            'selector' => '',
+            'selectorid' => '',
+            'transparent' => false,
+            
+            // Device & Rendering
+            'useragent' => '',
+            'emulatedevice' => '',
+            'httpauth' => '',
+            
+            // Image Processing
+            'resizewidth' => null,
+            'resizeheight' => null,
+            'type' => 'png',
+            'bestformat' => true,
+            
+            // Caching
+            'fresh' => false,
+            
+            // WordPress Specific
             'class' => 'capture-screenshot',
             'alt' => 'Website Screenshot',
-            'loading' => 'lazy',
-            'cache' => true
+            'loading' => 'lazy'
         ), $atts, 'capture_screenshot');
 
         if (empty($atts['url'])) {
@@ -96,20 +132,50 @@ class CapturePage
             return '<p class="capture-error">' . esc_html__('Capture API credentials not configured. Please check plugin settings.', 'capture-screenshots-pdf') . '</p>';
         }
 
-        $options = array(
-            'vw' => intval($atts['vw']),
-            'vh' => intval($atts['vh']),
-            'full' => filter_var($atts['full'], FILTER_VALIDATE_BOOLEAN),
-            'delay' => intval($atts['delay']),
-            'format' => sanitize_text_field($atts['format']),
-            'quality' => intval($atts['quality'])
-        );
+        // Build API options with proper parameter names
+        $api_options = array();
+        
+        // Viewport & Capture Area
+        $api_options['vw'] = intval($atts['vw']);
+        $api_options['vh'] = intval($atts['vh']);
+        if ($atts['scalefactor'] != 1) $api_options['scaleFactor'] = floatval($atts['scalefactor']);
+        if ($atts['top'] != 0) $api_options['top'] = intval($atts['top']);
+        if ($atts['left'] != 0) $api_options['left'] = intval($atts['left']);
+        if (!is_null($atts['width'])) $api_options['width'] = intval($atts['width']);
+        if (!is_null($atts['height'])) $api_options['height'] = intval($atts['height']);
+        
+        // Timing & Waiting
+        if (!empty($atts['waitfor'])) $api_options['waitFor'] = sanitize_text_field($atts['waitfor']);
+        if (!empty($atts['waitforid'])) $api_options['waitForId'] = sanitize_text_field($atts['waitforid']);
+        if ($atts['delay'] != 0) $api_options['delay'] = intval($atts['delay']);
+        
+        // Screenshot Options
+        if (filter_var($atts['full'], FILTER_VALIDATE_BOOLEAN)) $api_options['full'] = true;
+        if (filter_var($atts['darkmode'], FILTER_VALIDATE_BOOLEAN)) $api_options['darkMode'] = true;
+        if (filter_var($atts['blockcookiebanners'], FILTER_VALIDATE_BOOLEAN)) $api_options['blockCookieBanners'] = true;
+        if (filter_var($atts['blockads'], FILTER_VALIDATE_BOOLEAN)) $api_options['blockAds'] = true;
+        if (filter_var($atts['bypassbotdetection'], FILTER_VALIDATE_BOOLEAN)) $api_options['bypassBotDetection'] = true;
+        
+        // Selectors
+        if (!empty($atts['selector'])) $api_options['selector'] = sanitize_text_field($atts['selector']);
+        if (!empty($atts['selectorid'])) $api_options['selectorId'] = sanitize_text_field($atts['selectorid']);
+        if (filter_var($atts['transparent'], FILTER_VALIDATE_BOOLEAN)) $api_options['transparent'] = true;
+        
+        // Device & Rendering
+        if (!empty($atts['useragent'])) $api_options['userAgent'] = sanitize_text_field($atts['useragent']);
+        if (!empty($atts['emulatedevice'])) $api_options['emulateDevice'] = sanitize_text_field($atts['emulatedevice']);
+        if (!empty($atts['httpauth'])) $api_options['httpAuth'] = sanitize_text_field($atts['httpauth']);
+        
+        // Image Processing
+        if (!is_null($atts['resizewidth'])) $api_options['resizeWidth'] = intval($atts['resizewidth']);
+        if (!is_null($atts['resizeheight'])) $api_options['resizeHeight'] = intval($atts['resizeheight']);
+        if ($atts['type'] !== 'png') $api_options['type'] = sanitize_text_field($atts['type']);
+        if (!filter_var($atts['bestformat'], FILTER_VALIDATE_BOOLEAN)) $api_options['bestFormat'] = false;
+        
+        // Caching
+        if (filter_var($atts['fresh'], FILTER_VALIDATE_BOOLEAN)) $api_options['fresh'] = true;
 
-        if (filter_var($atts['cache'], FILTER_VALIDATE_BOOLEAN)) {
-            $options['t'] = time();
-        }
-
-        $image_url = $api->build_image_url(esc_url_raw($atts['url']), $options);
+        $image_url = $api->build_image_url(esc_url_raw($atts['url']), $api_options);
 
         return sprintf(
             '<img src="%s" alt="%s" class="%s" loading="%s" />',
@@ -123,15 +189,37 @@ class CapturePage
     public function pdf_shortcode($atts)
     {
         $atts = shortcode_atts(array(
+            // Required
             'url' => '',
+            
+            // Page Dimensions
+            'width' => null,
+            'height' => null,
             'format' => 'A4',
-            'orientation' => 'portrait',
-            'full' => false,
+            
+            // Margins
+            'margintop' => null,
+            'marginright' => null,
+            'marginbottom' => null,
+            'marginleft' => null,
+            
+            // Rendering
+            'scale' => 1,
+            'landscape' => false,
+            'printbackground' => false,
+            
+            // Timing
             'delay' => 0,
-            'class' => 'capture-pdf',
+            'timestamp' => null,
+            
+            // Authentication
+            'httpauth' => '',
+            'useragent' => '',
+            
+            // WordPress Specific
             'text' => 'Download PDF',
             'target' => '_blank',
-            'cache' => true
+            'class' => 'capture-pdf'
         ), $atts, 'capture_pdf');
 
         if (empty($atts['url'])) {
@@ -143,18 +231,34 @@ class CapturePage
             return '<p class="capture-error">' . esc_html__('Capture API credentials not configured. Please check plugin settings.', 'capture-screenshots-pdf') . '</p>';
         }
 
-        $options = array(
-            'format' => sanitize_text_field($atts['format']),
-            'orientation' => sanitize_text_field($atts['orientation']),
-            'full' => filter_var($atts['full'], FILTER_VALIDATE_BOOLEAN),
-            'delay' => intval($atts['delay'])
-        );
+        // Build API options with proper parameter names
+        $api_options = array();
+        
+        // Page Dimensions
+        if (!is_null($atts['width'])) $api_options['width'] = sanitize_text_field($atts['width']);
+        if (!is_null($atts['height'])) $api_options['height'] = sanitize_text_field($atts['height']);
+        if ($atts['format'] !== 'A4') $api_options['format'] = sanitize_text_field($atts['format']);
+        
+        // Margins
+        if (!is_null($atts['margintop'])) $api_options['marginTop'] = sanitize_text_field($atts['margintop']);
+        if (!is_null($atts['marginright'])) $api_options['marginRight'] = sanitize_text_field($atts['marginright']);
+        if (!is_null($atts['marginbottom'])) $api_options['marginBottom'] = sanitize_text_field($atts['marginbottom']);
+        if (!is_null($atts['marginleft'])) $api_options['marginLeft'] = sanitize_text_field($atts['marginleft']);
+        
+        // Rendering
+        if ($atts['scale'] != 1) $api_options['scale'] = floatval($atts['scale']);
+        if (filter_var($atts['landscape'], FILTER_VALIDATE_BOOLEAN)) $api_options['landscape'] = true;
+        if (filter_var($atts['printbackground'], FILTER_VALIDATE_BOOLEAN)) $api_options['printBackground'] = true;
+        
+        // Timing
+        if ($atts['delay'] != 0) $api_options['delay'] = intval($atts['delay']);
+        if (!is_null($atts['timestamp'])) $api_options['timestamp'] = sanitize_text_field($atts['timestamp']);
+        
+        // Authentication
+        if (!empty($atts['httpauth'])) $api_options['httpAuth'] = sanitize_text_field($atts['httpauth']);
+        if (!empty($atts['useragent'])) $api_options['userAgent'] = sanitize_text_field($atts['useragent']);
 
-        if (filter_var($atts['cache'], FILTER_VALIDATE_BOOLEAN)) {
-            $options['t'] = time();
-        }
-
-        $pdf_url = $api->build_pdf_url(esc_url_raw($atts['url']), $options);
+        $pdf_url = $api->build_pdf_url(esc_url_raw($atts['url']), $api_options);
 
         return sprintf(
             '<a href="%s" target="%s" class="%s">%s</a>',

@@ -34,10 +34,8 @@ class CaptureAPI
         $filtered_options = array();
         
         foreach ($options as $key => $value) {
-            if ($key === 'format') {
-                continue;
-            }
-            if (empty($value) && $value !== 0 && $value !== false) {
+            // Only skip if value is null, empty string, or empty array - but allow 0, false
+            if (is_null($value) || $value === '' || (is_array($value) && empty($value))) {
                 continue;
             }
             
