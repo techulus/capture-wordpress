@@ -4,7 +4,7 @@ Tags: screenshot, pdf, capture, webpage, shortcode
 Requires at least: 4.7
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -92,7 +92,7 @@ Yes, you need an API key and secret from Capture. Sign up at https://capture.pag
 * `resizeWidth` - Resize image width
 * `resizeHeight` - Resize image height
 * `type` - Image format (png, jpeg, webp - default: png)
-* `bestFormat` - Optimize image format (true/false)
+* `bestFormat` - Optimize image format (true/false, default: true)
 
 *Caching:*
 * `fresh` - Force new screenshot (true/false)
@@ -185,6 +185,11 @@ By using this plugin, website administrators acknowledge that they are sending w
 5. PDF download link example
 
 == Changelog ==
+
+= 1.1.0 =
+* Added support for all API parameters
+* Set bestFormat to true by default for optimized image formats
+* Improved parameter validation and type handling
 
 = 1.0.0 =
 * Initial release
