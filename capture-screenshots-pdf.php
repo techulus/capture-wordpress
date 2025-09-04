@@ -7,7 +7,7 @@
  * Author: Arjun Komath
  * Author URI: https://techulus.com
  * License: GPLv3
- * Text Domain: capture-page
+ * Text Domain: capture-screenshots-pdf
  * Domain Path: /languages
  */
 
@@ -61,7 +61,7 @@ class CapturePage
 
     public function admin_enqueue_scripts($hook)
     {
-        if ('settings_page_capture-page' !== $hook) {
+        if ('settings_page_capture-screenshots-pdf' !== $hook) {
             return;
         }
         wp_enqueue_script('capture-admin', CAPTURE_PLUGIN_URL . 'assets/js/capture-admin.js', array('jquery'), CAPTURE_PLUGIN_VERSION, true);
@@ -88,12 +88,12 @@ class CapturePage
         ), $atts, 'capture_screenshot');
 
         if (empty($atts['url'])) {
-            return '<p class="capture-error">' . esc_html__('URL is required for screenshot shortcode.', 'capture-page') . '</p>';
+            return '<p class="capture-error">' . esc_html__('URL is required for screenshot shortcode.', 'capture-screenshots-pdf') . '</p>';
         }
 
         $api = new CaptureAPI();
         if (!$api->is_configured()) {
-            return '<p class="capture-error">' . esc_html__('Capture API credentials not configured. Please check plugin settings.', 'capture-page') . '</p>';
+            return '<p class="capture-error">' . esc_html__('Capture API credentials not configured. Please check plugin settings.', 'capture-screenshots-pdf') . '</p>';
         }
 
         $options = array(
@@ -135,12 +135,12 @@ class CapturePage
         ), $atts, 'capture_pdf');
 
         if (empty($atts['url'])) {
-            return '<p class="capture-error">' . esc_html__('URL is required for PDF shortcode.', 'capture-page') . '</p>';
+            return '<p class="capture-error">' . esc_html__('URL is required for PDF shortcode.', 'capture-screenshots-pdf') . '</p>';
         }
 
         $api = new CaptureAPI();
         if (!$api->is_configured()) {
-            return '<p class="capture-error">' . esc_html__('Capture API credentials not configured. Please check plugin settings.', 'capture-page') . '</p>';
+            return '<p class="capture-error">' . esc_html__('Capture API credentials not configured. Please check plugin settings.', 'capture-screenshots-pdf') . '</p>';
         }
 
         $options = array(

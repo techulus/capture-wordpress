@@ -100,7 +100,7 @@ class CaptureAPI
         if (!$this->is_configured()) {
             return array(
                 'success' => false,
-                'message' => __('API credentials are not configured.', 'capture-page')
+                'message' => __('API credentials are not configured.', 'capture-screenshots-pdf')
             );
         }
 
@@ -115,7 +115,7 @@ class CaptureAPI
             if (is_wp_error($response)) {
                 return array(
                     'success' => false,
-                    'message' => __('Connection failed: ', 'capture-page') . $response->get_error_message()
+                    'message' => __('Connection failed: ', 'capture-screenshots-pdf') . $response->get_error_message()
                 );
             }
 
@@ -124,20 +124,20 @@ class CaptureAPI
             if ($response_code === 200) {
                 return array(
                     'success' => true,
-                    'message' => __('Connection successful! API credentials are working.', 'capture-page')
+                    'message' => __('Connection successful! API credentials are working.', 'capture-screenshots-pdf')
                 );
             } else {
                 return array(
                     'success' => false,
                     /* translators: %d is the HTTP response code from the API */
-                    'message' => sprintf(__('API returned error code: %d', 'capture-page'), $response_code)
+                    'message' => sprintf(__('API returned error code: %d', 'capture-screenshots-pdf'), $response_code)
                 );
             }
 
         } catch (Exception $e) {
             return array(
                 'success' => false,
-                'message' => __('Error: ', 'capture-page') . $e->getMessage()
+                'message' => __('Error: ', 'capture-screenshots-pdf') . $e->getMessage()
             );
         }
     }

@@ -38,7 +38,7 @@ PDF: `[capture_pdf url="https://example.com" format="A4" text="Download PDF"]`
 
 == Installation ==
 
-1. Upload the plugin files to `/wp-content/plugins/capture-page/` directory, or install through WordPress admin directly.
+1. Upload the plugin files to `/wp-content/plugins/capture-screenshots-pdf/` directory, or install through WordPress admin directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
 3. Go to Settings → Capture to configure your API credentials.
 4. Get your API key and secret from https://capture.page/console
@@ -150,6 +150,31 @@ Yes, the plugin follows WordPress security best practices:
 * Nonce verification for admin actions
 * Secure credential storage
 * Output escaping
+
+== External services ==
+
+This plugin relies on Capture (https://capture.page), a third-party service for generating website screenshots and PDFs. This external service is essential for the plugin's core functionality.
+
+**What the service is and what it is used for:**
+Capture (https://capture.page) is a browser automation API that can generate screenshot and PDFs from webpage URLs. It is used by this plugin to process the URLs provided in the shortcodes and return the corresponding screenshot or PDF files.
+
+**What data is sent and when:**
+- The target website URL that you want to capture (sent when using shortcodes)
+- Screenshot parameters like viewport size, image format, and capture options
+- PDF parameters like paper size, orientation, and margins
+- Your API credentials (key and hash generated using secret) for authentication
+- Data is sent every time a [capture_screenshot] or [capture_pdf] shortcode is processed on your website
+
+**Service links:**
+- Terms of Service: https://capture.page/terms
+- Privacy Policy: https://capture.page/privacy
+- Documentation pages https://docs.capture.page
+
+**API Endpoint:**
+The plugin connects to https://cdn.capture.page to generate screenshots and PDFs.
+
+**User consent:**
+By using this plugin, website administrators acknowledge that they are sending website URLs and request parameters to Capture service.
 
 == Screenshots ==
 

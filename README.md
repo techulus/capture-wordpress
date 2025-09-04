@@ -124,7 +124,7 @@ capture-wordpress/
 ├── includes/
 │   ├── class-capture-admin.php
 │   └── class-capture-api.php
-├── capture-page.php
+├── capture-screenshots-pdf.php
 ├── readme.txt (WordPress.org format)
 └── README.md (This file)
 ```
