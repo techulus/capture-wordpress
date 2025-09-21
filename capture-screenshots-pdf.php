@@ -3,7 +3,7 @@
  * Plugin Name: Capture - Screenshots & PDF
  * Plugin URI: https://capture.page
  * Description: Embed website screenshots and PDFs using Capture API with simple shortcodes.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Arjun Komath
  * Author URI: https://techulus.com
  * License: GPLv3
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('CAPTURE_PLUGIN_VERSION', '1.1.0');
+define('CAPTURE_PLUGIN_VERSION', '1.2.0');
 define('CAPTURE_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('CAPTURE_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
@@ -113,7 +113,8 @@ class CapturePage
             'resizeheight' => null,
             'type' => 'png',
             'bestformat' => true,
-            
+            'filename' => '',
+
             // Caching
             'fresh' => false,
             
@@ -171,6 +172,7 @@ class CapturePage
         if (!is_null($atts['resizeheight'])) $api_options['resizeHeight'] = intval($atts['resizeheight']);
         if ($atts['type'] !== 'png') $api_options['type'] = sanitize_text_field($atts['type']);
         if (!filter_var($atts['bestformat'], FILTER_VALIDATE_BOOLEAN)) $api_options['bestFormat'] = false;
+        if (!empty($atts['filename'])) $api_options['fileName'] = sanitize_file_name($atts['filename']);
         
         // Caching
         if (filter_var($atts['fresh'], FILTER_VALIDATE_BOOLEAN)) $api_options['fresh'] = true;
@@ -215,7 +217,10 @@ class CapturePage
             // Authentication
             'httpauth' => '',
             'useragent' => '',
-            
+
+            // File Options
+            'filename' => '',
+
             // WordPress Specific
             'text' => 'Download PDF',
             'target' => '_blank',
@@ -257,6 +262,9 @@ class CapturePage
         // Authentication
         if (!empty($atts['httpauth'])) $api_options['httpAuth'] = sanitize_text_field($atts['httpauth']);
         if (!empty($atts['useragent'])) $api_options['userAgent'] = sanitize_text_field($atts['useragent']);
+
+        // File Options
+        if (!empty($atts['filename'])) $api_options['fileName'] = sanitize_file_name($atts['filename']);
 
         $pdf_url = $api->build_pdf_url(esc_url_raw($atts['url']), $api_options);
 

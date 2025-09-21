@@ -4,7 +4,7 @@ Tags: screenshot, pdf, capture, webpage, shortcode
 Requires at least: 4.7
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -93,6 +93,7 @@ Yes, you need an API key and secret from Capture. Sign up at https://capture.pag
 * `resizeHeight` - Resize image height
 * `type` - Image format (png, jpeg, webp - default: png)
 * `bestFormat` - Optimize image format (true/false, default: true)
+* `fileName` - Custom filename for the image (e.g., "screenshot.png")
 
 *Caching:*
 * `fresh` - Force new screenshot (true/false)
@@ -130,6 +131,9 @@ Yes, you need an API key and secret from Capture. Sign up at https://capture.pag
 *Authentication:*
 * `httpAuth` - HTTP Basic Authentication (base64url encoded)
 * `userAgent` - Custom user agent (base64url encoded)
+
+*File Options:*
+* `fileName` - Custom filename for the PDF (e.g., "document.pdf")
 
 *WordPress Specific:*
 * `text` - Link text (default: "Download PDF")
@@ -185,6 +189,10 @@ By using this plugin, website administrators acknowledge that they are sending w
 5. PDF download link example
 
 == Changelog ==
+
+= 1.2.0 =
+* Added fileName parameter for both screenshot and PDF shortcodes
+* Allows custom filenames for downloads (e.g., fileName="screenshot.png" or fileName="report.pdf")
 
 = 1.1.0 =
 * Added support for all API parameters
