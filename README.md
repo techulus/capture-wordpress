@@ -1,6 +1,6 @@
 # Capture WordPress Plugin
 
-[![WordPress Plugin Version](https://img.shields.io/badge/WordPress-6.3%2B-blue)](https://wordpress.org/)
+[![WordPress Plugin Version](https://img.shields.io/badge/WordPress-6.9%2B-blue)](https://wordpress.org/)
 [![PHP Version](https://img.shields.io/badge/PHP-7.4%2B-purple)](https://www.php.net/)
 
 Embed website screenshots and generate PDFs using the [Capture API](https://capture.page) with simple WordPress shortcodes.

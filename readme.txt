@@ -2,7 +2,7 @@
 Contributors: techulus
 Tags: screenshot, pdf, capture, webpage, shortcode
 Requires at least: 4.7
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.4
 Stable tag: 1.2.0
 License: GPLv3
