@@ -3,19 +3,18 @@
  * Plugin Name: Capture - Screenshots & PDF
  * Plugin URI: https://capture.page
  * Description: Embed website screenshots and PDFs using Capture API with simple shortcodes.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: Arjun Komath
  * Author URI: https://techulus.com
  * License: GPLv3
  * Text Domain: capture-screenshots-pdf
- * Domain Path: /languages
  */
 
 if (!defined('ABSPATH')) {
     exit;
 }
 
-define('CAPTURE_PLUGIN_VERSION', '1.2.0');
+define('CAPTURE_PLUGIN_VERSION', '1.2.1');
 define('CAPTURE_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('CAPTURE_PLUGIN_PATH', plugin_dir_path(__FILE__));
 

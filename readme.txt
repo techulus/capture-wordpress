@@ -2,9 +2,9 @@
 Contributors: techulus
 Tags: screenshot, pdf, capture, webpage, shortcode
 Requires at least: 4.7
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -189,6 +189,9 @@ By using this plugin, website administrators acknowledge that they are sending w
 5. PDF download link example
 
 == Changelog ==
+
+= 1.2.1 =
+* Verified compatibility with WordPress 7.0
 
 = 1.2.0 =
 * Added fileName parameter for both screenshot and PDF shortcodes
